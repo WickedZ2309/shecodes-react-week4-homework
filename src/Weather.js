@@ -17,7 +17,7 @@ export default function Weather(props) {
       visible={true}
       height="80"
       width="80"
-      color="orange"
+      color="white"
       radius="9"
       ariaLabel="three-dots-loading"
       wrapperStyle={{}}
