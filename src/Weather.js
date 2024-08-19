@@ -1,27 +1,70 @@
 import React from "react";
-import axios from "axios";
-import { ThreeDots } from 'react-loader-spinner'
 
-export default function Weather(props) {
-  function handleresponse(response) {
-    alert(`The weather in ${response.data.name} is ${response.data.main.temp}ºC`)
-  }
+import "./Weather.css";
 
-  let apiKey = `2684689779a1e8c6910997393908cda2`;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.city}&appid=${apiKey}&units=metric`;
-  
-  axios.get(apiUrl).then(handleresponse);
-  
+export default function Weather() {
+  let weatherData = {
+    city: "Montréal",
+    temperature: 23,
+    date: "Saturday 22:13",
+    description: "clear sky",
+    imgUrl:
+      "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-night.png",
+    humidity: 72,
+    wind: 2.57,
+  };
+
   return (
-    <ThreeDots
-      visible={true}
-      height="80"
-      width="80"
-      color="white"
-      radius="9"
-      ariaLabel="three-dots-loading"
-      wrapperStyle={{}}
-      wrapperClass=""
-    />
-  )
+    <div className="Weather">
+      <form className="mb-3">
+        <div className="row">
+          <div className="col-9">
+            <input
+              type="search"
+              placeholder="Type a city..."
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+          <div className="col-3">
+            <input
+              type="submit"
+              value="Search"
+              className="btn btn-primary w-100"
+            />
+          </div>
+        </div>
+      </form>
+      <div className="overview">
+        <h1>{weatherData.city}</h1>
+        <ul>
+          <li>Last updated: {weatherData.date}</li>
+          <li>{weatherData.description}</li>
+        </ul>
+      </div>
+      <div className="row">
+        <div className="col-6">
+          <div className="clearfix weather-temperature">
+            <img
+              src={weatherData.imgUrl}
+              alt={weatherData.description}
+              className="float-left"
+            />
+            <div className="float-left">
+              <strong>{weatherData.temperature}</strong>
+              <span className="units">
+                <a href="/">°C</a> | <a href="/">°F</a>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="col-6">
+          <ul>
+            <li>Humidity: {weatherData.humidity}%</li>
+            <li>Wind: {weatherData.wind} km/h</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 }
